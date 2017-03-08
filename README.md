@@ -122,7 +122,7 @@ curl -d{} http://localhost:8081/refresh
 * Verify the value is updated.
 
 ## Exercise 3 Async Refresh
-* Add spring-cloud-config-monitor to both apps
+* Add spring-cloud-config-monitor to config-server apps
 * Add spring-cloud-starter-bus-amqp to the reader service 
 * Restart both apps
 * Start an ngrok process pointing to the config server 
@@ -132,7 +132,7 @@ curl -d{} http://localhost:8081/refresh
 * Go a get to the reader endpoint, it should have the new value
 
 ## Excercise 4 Updating multiple services with the same config server
-* Change the rabbitmq configuration on the reader for point to the cloudamqp service.
+* Change the rabbitmq configuration on both apps for point to the cloudamqp service.
 ```
 spring.rabbitmq.host: fox.rmq.cloudamqp.com
 spring.rabbitmq.virtual-host: qghlygtg
