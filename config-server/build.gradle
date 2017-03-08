@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '1.5.2.RELEASE'
+		springBootVersion = '1.4.5.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -28,11 +28,13 @@ repositories {
 
 dependencies {
 	compile('org.springframework.cloud:spring-cloud-config-server')
+	compile('org.springframework.cloud:spring-cloud-config-monitor')
+	compile('org.springframework.cloud:spring-cloud-starter-bus-amqp')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
 dependencyManagement {
 	imports {
-		mavenBom "org.springframework.cloud:spring-cloud-dependencies:Camden.SR5"
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:Camden.SR4"
 	}
 }
