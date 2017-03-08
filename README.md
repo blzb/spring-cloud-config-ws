@@ -90,3 +90,22 @@ public class RepeatController {
 * Run the app
 * Do a get request to /app/repeat
 
+### Update a property
+* Change a properties file for the reader, commit and push the change.
+* Do a get request to the config server and verify it has changed.
+* Check the reader endpoint, it should have change .... but it __hasn't__
+* To unable auto update we need to add another anotation to the controller, add `@RefreshScope` annotation.
+* Restart the reader app and verify the property value is set.
+* Change the property, commit and push the change. 
+* Do a POST to http://localhost:8080/refresh
+* Verify the value is updated.
+
+## Exercise 3 Async Refresh
+* Add spring-cloud-config-monitor to the config server dependencies
+* Add spring-cloud-starter-bus-amqp to the reader service 
+* Restart both apps
+* Start an ngrok process pointing to the config server 
+* Add a webhook on githu to push changes to the ngrok url
+* Change a property in the reader properties file
+* Push and commit the changes.
+* Go a get to the reader endpoint, it should have the new value
