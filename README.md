@@ -9,6 +9,7 @@ In the first exercise we will get the config server up and running.
 
 * Go to https://start.spring.io/
 * Select gradle project and version 1.4.5 of Spring boot
+* Change the cloud release to Camden.SR4
 * Assign a group and artifact, for example: com.ns.configws:config-server
 * Add dependencies for: Config Server
 * Download and unpack
@@ -65,6 +66,7 @@ gradle bootRun
 
 * Go to https://start.spring.io/
 * Select gradle project and version 1.4.5 of Spring boot
+* Change the cloud release to Camden.SR4
 * Assign a group and artifact, for example: com.ns.configws:reader
 * Add dependencies for: Config Client, Web
 * Download and unpack
