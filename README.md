@@ -109,3 +109,52 @@ public class RepeatController {
 * Change a property in the reader properties file
 * Push and commit the changes.
 * Go a get to the reader endpoint, it should have the new value
+
+## Excercise 4 Updating multiple services with the same config server
+* Change the rabbitmq configuration on the reader for point to the cloudamqp service.
+* Restart the reader app.
+* The instructor will start the the config server and push a change to the repo.
+* What how all the services update the property.
+
+## Excercise 5 Encrypt values
+
+### Install JCE 
+* Download JCE from http://www.oracle.com/technetwork/java/javase/downloads/index.html
+* Make a back up of $JAVA_HOME/jre/lib/security files.
+* Copy local_policy.jar and US_export_policy.jar into $JAVA_HOME/jre/lib/security
+* Create a keystore with the following command
+```
+keytool -genkeypair -alias mytestkey -keyalg RSA \
+  -dname "CN=Web Server,OU=Unit,O=Organization,L=City,S=State,C=US" \
+  -keypass changeme -keystore server.jks -storepass letmein
+```
+### Add encrypt properties to the config server
+* Add the following properties to the application.yml
+```
+encrypt:
+  key-store:
+    location: file://${user.home}/server.jks
+    password: letmein
+    alias: mytestkey
+    secret: changeme
+```
+* Or use System variables
+```
+ENCRYPT_KEY_STORE_PASSWORD=letmein
+ENCRYPT_KEY_STORE_ALIAS=mytestkey
+ENCRYPT_KEY_STORE_SECRET=changeme</pre>
+```
+* Start the config server
+* Test the encription with a curl
+```
+curl localhost:8888/encrypt -d 'Hello Spring Boot!'
+```
+### Use decrypted properties
+* Add the following dependency to th reader app
+```
+org.springframework.security:spring-security-rsa
+```
+* Use the encrypt endpoint to add a cypher value to the properties file
+* Restart the reader app
+
+
