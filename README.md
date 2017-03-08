@@ -135,11 +135,11 @@ curl -d{} http://localhost:8081/refresh
 ## Exercise 4 Updating multiple services with the same config server
 * Change the rabbitmq configuration on the reader for point to the cloudamqp service.
 ```
-spring.rabbitmq.host: fox.rmq.cloudamqp.com
-spring.rabbitmq.virtual-host: qghlygtg
-spring.rabbitmq.port: 5672
-spring.rabbitmq.username: qghlygtg
-spring.rabbitmq.password: F_VLCcr8BPMmVZRLJGu_H3QCsOX1_bSr
+spring.rabbitmq.host=fox.rmq.cloudamqp.com
+spring.rabbitmq.virtual-host=qghlygtg
+spring.rabbitmq.port=5672
+spring.rabbitmq.username=qghlygtg
+spring.rabbitmq.password=F_VLCcr8BPMmVZRLJGu_H3QCsOX1_bSr
 ```
 * Restart the reader app.
 * The instructor will start the the config server and push a change to the repo.
@@ -158,14 +158,12 @@ keytool -genkeypair -alias * -keyalg RSA \
   -keypass * -keystore server.jks -storepass *
 ```
 ### Add encrypt properties to the config server
-* Add the following properties to the application.yml
+* Add the following properties to the application.properties
 ```
-encrypt:
-  key-store:
-    location: file://${user.home}/server.jks
-    password: 
-    alias: 
-    secret: 
+encrypt.key-store.location=file://${user.home}/server.jks
+encrypt.key-store.password=
+encrypt.key-store.alias=
+encrypt.key-store.secret=
 ```
 * Or use System variables
 ```
