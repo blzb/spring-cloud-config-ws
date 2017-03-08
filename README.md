@@ -133,6 +133,13 @@ curl -d{} http://localhost:8081/refresh
 
 ## Excercise 4 Updating multiple services with the same config server
 * Change the rabbitmq configuration on the reader for point to the cloudamqp service.
+```
+spring.rabbitmq.host: fox.rmq.cloudamqp.com
+spring.rabbitmq.virtual-host: qghlygtg
+spring.rabbitmq.port: 5672
+spring.rabbitmq.username: qghlygtg
+spring.rabbitmq.password: F_VLCcr8BPMmVZRLJGu_H3QCsOX1_bSr
+```
 * Restart the reader app.
 * The instructor will start the the config server and push a change to the repo.
 * What how all the services update the property.
@@ -143,11 +150,11 @@ curl -d{} http://localhost:8081/refresh
 * Download JCE from http://www.oracle.com/technetwork/java/javase/downloads/index.html
 * Make a back up of $JAVA_HOME/jre/lib/security files.
 * Copy local_policy.jar and US_export_policy.jar into $JAVA_HOME/jre/lib/security
-* Create a keystore with the following command
+* Create a keystore with the following command changing the * for a value
 ```
-keytool -genkeypair -alias mytestkey -keyalg RSA \
+keytool -genkeypair -alias * -keyalg RSA \
   -dname "CN=Web Server,OU=Unit,O=Organization,L=City,S=State,C=US" \
-  -keypass changeme -keystore server.jks -storepass letmein
+  -keypass * -keystore server.jks -storepass *
 ```
 ### Add encrypt properties to the config server
 * Add the following properties to the application.yml
@@ -155,15 +162,15 @@ keytool -genkeypair -alias mytestkey -keyalg RSA \
 encrypt:
   key-store:
     location: file://${user.home}/server.jks
-    password: letmein
-    alias: mytestkey
-    secret: changeme
+    password: 
+    alias: 
+    secret: 
 ```
 * Or use System variables
 ```
-ENCRYPT_KEY_STORE_PASSWORD=letmein
-ENCRYPT_KEY_STORE_ALIAS=mytestkey
-ENCRYPT_KEY_STORE_SECRET=changeme</pre>
+ENCRYPT_KEY_STORE_PASSWORD=
+ENCRYPT_KEY_STORE_ALIAS=
+ENCRYPT_KEY_STORE_SECRET=
 ```
 * Start the config server
 * Test the encription with a curl
@@ -178,4 +185,17 @@ org.springframework.security:spring-security-rsa
 * Use the encrypt endpoint to add a cypher value to the properties file
 * Restart the reader app
 
-
+### Config client decrypt
+* Add the following dependency to the reader app
+```
+compile('org.springframework.security:spring-security-rsa')
+```
+* Add the following property to the application.properties file of the config server
+```
+spring.cloud.config.server.encrypt.enabled=false
+```
+* Restart the config server
+* Build the reader jar and run it with the following command
+```
+java -Dencrypt.keyStore.location=file:///[route]/server.jks -Dencrypt.keyStore.password= -Dencrypt.keyStore.alias= -Dencrypt.keyStore.secret= -jar build/libs/reader-0.0.1-SNAPSHOT.jar
+```
