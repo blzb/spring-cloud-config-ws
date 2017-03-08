@@ -49,7 +49,7 @@ gradle bootRun
 ### Try differente file structures
 * Change the searchPath property to `searchPaths=dir-per-env/{profile}`
 * Reboot
-* Check how altough the endpoint is the same the location of the files is different
+* Check how although the endpoint is the same the location of the files is different
 * change the searchPath property to `searchPaths=dir-per-app`
 * Check how altough the endpoint is the same the location of the files is different
 
