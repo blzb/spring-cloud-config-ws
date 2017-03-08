@@ -75,6 +75,7 @@ gradle bootRun
 ```
 spring.application.name=reader
 spring.cloud.config.uri=http://localhost:8888
+spring.profiles.active=dev
 ```
 * Add a Controller that uses `@Value` annotation
 ```
@@ -83,12 +84,14 @@ spring.cloud.config.uri=http://localhost:8888
 public class RepeatController {
     @Value("${app.repeat: 1}")
     Long repeat;
+    @Value("${app.label}")
+    String label;
 
     @RequestMapping(value = "/repeat", method = RequestMethod.GET)
     @ResponseBody String getName() {
         StringBuilder stringBuilder = new StringBuilder();
         for(int i=0;i<repeat; i++){
-          stringBuilder.append('*********\n')
+          stringBuilder.append(label).append("<br/>");
         }
         return stringBuilder.toString();
     }
