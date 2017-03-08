@@ -37,8 +37,15 @@ public class ConfigServerApplication {
 ```
 gradle bootRun
 ```
-* Request a simple properties file like : http://localhost:8888/writer-dev.properties
-
+* Request a simple properties file like : http://localhost:8888/reader-dev.properties
+* Try different structures
+```
+/{application}/{profile}[/{label}]
+/{application}-{profile}.yml
+/{label}/{application}-{profile}.yml
+/{application}-{profile}.properties
+/{label}/{application}-{profile}.properties
+```
 ### Try differente file structures
 * Change the searchPath property to `searchPaths=dir-per-env/{profile}`
 * Reboot
