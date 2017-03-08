@@ -9,14 +9,14 @@ In the first exercise we will get the config server up and running.
 
 * Go to https://start.spring.io/
 * Select gradle project and version 1.4.5 of Spring boot
-* Change the cloud release to Camden.SR4
 * Assign a group and artifact, for example: com.ns.configws:config-server
 * Add dependencies for: Config Server
 * Download and unpack
+* In build.gradle change the cloud release to Camden.SR4
 
 ### Enable Config Server
 * Fork the properties repository https://github.com/blzb/jvm-mx-server-configurations
-* Add the following configurations to the application.yml
+* Add the following configurations to the application.properties
 ```
 server.port=8888
 spring.cloud.config.server.git.uri=[your fork url]
@@ -66,14 +66,14 @@ gradle bootRun
 
 * Go to https://start.spring.io/
 * Select gradle project and version 1.4.5 of Spring boot
-* Change the cloud release to Camden.SR4
 * Assign a group and artifact, for example: com.ns.configws:reader
 * Add dependencies for: Config Client, Web
 * Download and unpack
+* In build.gradle change the cloud release to Camden.SR4
 
 ### Client configuration
-* Add a bootstrap.yml file next to the application.yml
-* Add the following properties to the bootstrap.yml
+* Add a bootstrap.properties file next to the application.properties
+* Add the following properties to the bootstrap.properties
 ```
 spring.application.name=reader
 spring.cloud.config.uri=http://localhost:8888
@@ -108,6 +108,7 @@ public class RepeatController {
 * Check the reader endpoint, it should have change .... but it __hasn't__
 * To unable auto update we need to add another anotation to the controller, add `@RefreshScope` annotation.
 * Add `org.springframework.boot:spring-boot-starter-actuator` dependency to reader app
+* If you are using IntelliJ refresh your gradle project
 * Add the following properties to the application.properties
 ```
 management.port=8081
