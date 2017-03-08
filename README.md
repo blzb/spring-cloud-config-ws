@@ -9,14 +9,14 @@ In the first exercise we will get the config server up and running.
 
 * Go to https://start.spring.io/
 * Select gradle project and version 1.4.5 of Spring boot
-* Change the cloud release to Camden.SR4
 * Assign a group and artifact, for example: com.ns.configws:config-server
 * Add dependencies for: Config Server
 * Download and unpack
+* In build.gradle change the cloud release to Camden.SR4
 
 ### Enable Config Server
 * Fork the properties repository https://github.com/blzb/jvm-mx-server-configurations
-* Add the following configurations to the application.yml
+* Add the following configurations to the application.properties
 ```
 server.port=8888
 spring.cloud.config.server.git.uri=[your fork url]
@@ -47,12 +47,12 @@ gradle bootRun
 /{application}-{profile}.properties
 /{label}/{application}-{profile}.properties
 ```
-### Try differente file structures
+### Try different file structures
 * Change the searchPath property to `searchPaths=dir-per-env/{profile}`
 * Reboot
 * Check how although the endpoint is the same the location of the files is different
 * change the searchPath property to `searchPaths=dir-per-app/{application}`
-* Check how altough the endpoint is the same the location of the files is different
+* Check how although the endpoint is the same the location of the files is different
 
 ### Push changes to the git repo
 * Change or add a property to one of the properties file
@@ -66,14 +66,14 @@ gradle bootRun
 
 * Go to https://start.spring.io/
 * Select gradle project and version 1.4.5 of Spring boot
-* Change the cloud release to Camden.SR4
 * Assign a group and artifact, for example: com.ns.configws:reader
 * Add dependencies for: Config Client, Web
 * Download and unpack
+* In build.gradle change the cloud release to Camden.SR4
 
 ### Client configuration
-* Add a bootstrap.yml file next to the application.yml
-* Add the following properties to the bootstrap.yml
+* Add a bootstrap.properties file next to the application.properties
+* Add the following properties to the bootstrap.properties
 ```
 spring.application.name=reader
 spring.cloud.config.uri=http://localhost:8888
@@ -108,6 +108,7 @@ public class RepeatController {
 * Check the reader endpoint, it should have change .... but it __hasn't__
 * To unable auto update we need to add another anotation to the controller, add `@RefreshScope` annotation.
 * Add `org.springframework.boot:spring-boot-starter-actuator` dependency to reader app
+* If you are using IntelliJ refresh your gradle project
 * Add the following properties to the application.properties
 ```
 management.port=8081
@@ -122,29 +123,29 @@ curl -d{} http://localhost:8081/refresh
 * Verify the value is updated.
 
 ## Exercise 3 Async Refresh
-* Add spring-cloud-config-monitor to both apps
-* Add spring-cloud-starter-bus-amqp to the reader service 
-* Restart both apps
+* Add spring-cloud-config-monitor dependency to both apps
+* Add spring-cloud-starter-bus-amqp dependency to the reader service
+* Restart both apps, if you are using IntelliJ refresh gradle projects
 * Start an ngrok process pointing to the config server 
-* Add a webhook on githu to push changes to the ngrok url
+* Add a webhook on github to push changes to the ngrok url
 * Change a property in the reader properties file
 * Push and commit the changes.
 * Go a get to the reader endpoint, it should have the new value
 
-## Excercise 4 Updating multiple services with the same config server
+## Exercise 4 Updating multiple services with the same config server
 * Change the rabbitmq configuration on the reader for point to the cloudamqp service.
 ```
-spring.rabbitmq.host: fox.rmq.cloudamqp.com
-spring.rabbitmq.virtual-host: qghlygtg
-spring.rabbitmq.port: 5672
-spring.rabbitmq.username: qghlygtg
-spring.rabbitmq.password: F_VLCcr8BPMmVZRLJGu_H3QCsOX1_bSr
+spring.rabbitmq.host=fox.rmq.cloudamqp.com
+spring.rabbitmq.virtual-host=qghlygtg
+spring.rabbitmq.port=5672
+spring.rabbitmq.username=qghlygtg
+spring.rabbitmq.password=F_VLCcr8BPMmVZRLJGu_H3QCsOX1_bSr
 ```
 * Restart the reader app.
 * The instructor will start the the config server and push a change to the repo.
 * What how all the services update the property.
 
-## Excercise 5 Encrypt values
+## Exercise 5 Encrypt values
 
 ### Install JCE 
 * Download JCE from http://www.oracle.com/technetwork/java/javase/downloads/index.html
@@ -157,14 +158,12 @@ keytool -genkeypair -alias * -keyalg RSA \
   -keypass * -keystore server.jks -storepass *
 ```
 ### Add encrypt properties to the config server
-* Add the following properties to the application.yml
+* Add the following properties to the application.properties
 ```
-encrypt:
-  key-store:
-    location: file://${user.home}/server.jks
-    password: 
-    alias: 
-    secret: 
+encrypt.key-store.location=file://${user.home}/server.jks
+encrypt.key-store.password=
+encrypt.key-store.alias=
+encrypt.key-store.secret=
 ```
 * Or use System variables
 ```
@@ -173,7 +172,7 @@ ENCRYPT_KEY_STORE_ALIAS=
 ENCRYPT_KEY_STORE_SECRET=
 ```
 * Start the config server
-* Test the encription with a curl
+* Test the encryption with a curl
 ```
 curl localhost:8888/encrypt -d 'Hello Spring Boot!'
 ```
