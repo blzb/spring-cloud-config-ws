@@ -47,12 +47,12 @@ gradle bootRun
 /{application}-{profile}.properties
 /{label}/{application}-{profile}.properties
 ```
-### Try differente file structures
+### Try different file structures
 * Change the searchPath property to `searchPaths=dir-per-env/{profile}`
 * Reboot
 * Check how although the endpoint is the same the location of the files is different
 * change the searchPath property to `searchPaths=dir-per-app/{application}`
-* Check how altough the endpoint is the same the location of the files is different
+* Check how although the endpoint is the same the location of the files is different
 
 ### Push changes to the git repo
 * Change or add a property to one of the properties file
@@ -123,16 +123,16 @@ curl -d{} http://localhost:8081/refresh
 * Verify the value is updated.
 
 ## Exercise 3 Async Refresh
-* Add spring-cloud-config-monitor to both apps
-* Add spring-cloud-starter-bus-amqp to the reader service 
-* Restart both apps
+* Add spring-cloud-config-monitor dependency to both apps
+* Add spring-cloud-starter-bus-amqp dependency to the reader service
+* Restart both apps, if you are using IntelliJ refresh gradle projects
 * Start an ngrok process pointing to the config server 
-* Add a webhook on githu to push changes to the ngrok url
+* Add a webhook on github to push changes to the ngrok url
 * Change a property in the reader properties file
 * Push and commit the changes.
 * Go a get to the reader endpoint, it should have the new value
 
-## Excercise 4 Updating multiple services with the same config server
+## Exercise 4 Updating multiple services with the same config server
 * Change the rabbitmq configuration on the reader for point to the cloudamqp service.
 ```
 spring.rabbitmq.host: fox.rmq.cloudamqp.com
@@ -145,7 +145,7 @@ spring.rabbitmq.password: F_VLCcr8BPMmVZRLJGu_H3QCsOX1_bSr
 * The instructor will start the the config server and push a change to the repo.
 * What how all the services update the property.
 
-## Excercise 5 Encrypt values
+## Exercise 5 Encrypt values
 
 ### Install JCE 
 * Download JCE from http://www.oracle.com/technetwork/java/javase/downloads/index.html
@@ -174,7 +174,7 @@ ENCRYPT_KEY_STORE_ALIAS=
 ENCRYPT_KEY_STORE_SECRET=
 ```
 * Start the config server
-* Test the encription with a curl
+* Test the encryption with a curl
 ```
 curl localhost:8888/encrypt -d 'Hello Spring Boot!'
 ```
