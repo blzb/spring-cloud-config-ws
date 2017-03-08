@@ -50,7 +50,7 @@ gradle bootRun
 * Change the searchPath property to `searchPaths=dir-per-env/{profile}`
 * Reboot
 * Check how although the endpoint is the same the location of the files is different
-* change the searchPath property to `searchPaths=dir-per-app`
+* change the searchPath property to `searchPaths=dir-per-app/{application}`
 * Check how altough the endpoint is the same the location of the files is different
 
 ### Push changes to the git repo
