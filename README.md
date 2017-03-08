@@ -105,9 +105,18 @@ public class RepeatController {
 * Do a get request to the config server and verify it has changed.
 * Check the reader endpoint, it should have change .... but it __hasn't__
 * To unable auto update we need to add another anotation to the controller, add `@RefreshScope` annotation.
+* Add `org.springframework.boot:spring-boot-starter-actuator` dependency to reader app
+* Add the following properties to the application.properties
+```
+management.port=8081
+management.security.enabled=false
+```
 * Restart the reader app and verify the property value is set.
 * Change the property, commit and push the change. 
-* Do a POST to http://localhost:8080/refresh
+* Do a POST to the refresh endpoint
+```
+curl -d{} http://localhost:8081/refresh
+```
 * Verify the value is updated.
 
 ## Exercise 3 Async Refresh
