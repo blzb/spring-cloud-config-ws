@@ -16,7 +16,7 @@ In the first exercise we will get the config server up and running.
 
 ### Enable Config Server
 * Fork the properties repository https://github.com/blzb/jvm-mx-server-configurations
-* Add the following configurations to the application.properties
+* Add the following configurations to the application.yml
 ```
 server.port=8888
 spring.cloud.config.server.git.uri=[your fork url]
@@ -72,8 +72,8 @@ gradle bootRun
 * Download and unpack
 
 ### Client configuration
-* Add a bootstrap.properties file next to the application.properties
-* Add the following properties to the bootstrap.properties
+* Add a bootstrap.yml file next to the application.yml
+* Add the following properties to the bootstrap.yml
 ```
 spring.application.name=reader
 spring.cloud.config.uri=http://localhost:8888
@@ -157,12 +157,14 @@ keytool -genkeypair -alias * -keyalg RSA \
   -keypass * -keystore server.jks -storepass *
 ```
 ### Add encrypt properties to the config server
-* Add the following properties to the application.properties
+* Add the following properties to the application.yml
 ```
-encrypt.key-store.location=file://${user.home}/server.jks
-encrypt.key-store.password=
-encrypt.key-store.alias=
-encrypt.key-store.secret=
+encrypt:
+  key-store:
+    location: file://${user.home}/server.jks
+    password: 
+    alias: 
+    secret: 
 ```
 * Or use System variables
 ```
