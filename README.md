@@ -8,7 +8,7 @@ In the first exercise we will get the config server up and running.
 ### Generate project 
 
 * Go to https://start.spring.io/
-* Select gradle project and the latests version of Spring boot
+* Select gradle project and version 1.4.5 of Spring boot
 * Assign a group and artifact, for example: com.ns.configws:config-server
 * Add dependencies for: Config Server
 * Download and unpack
@@ -64,7 +64,7 @@ gradle bootRun
 ### Generate project 
 
 * Go to https://start.spring.io/
-* Select gradle project and the latests version of Spring boot
+* Select gradle project and version 1.4.5 of Spring boot
 * Assign a group and artifact, for example: com.ns.configws:reader
 * Add dependencies for: Config Client, Web
 * Download and unpack
@@ -120,7 +120,7 @@ curl -d{} http://localhost:8081/refresh
 * Verify the value is updated.
 
 ## Exercise 3 Async Refresh
-* Add spring-cloud-config-monitor to the config server dependencies
+* Add spring-cloud-config-monitor to both apps
 * Add spring-cloud-starter-bus-amqp to the reader service 
 * Restart both apps
 * Start an ngrok process pointing to the config server 
